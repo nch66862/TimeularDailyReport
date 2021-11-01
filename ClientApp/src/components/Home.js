@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { TimeularContext } from './TimeularProvider';
 
 export const Home = () => {
@@ -7,19 +7,21 @@ export const Home = () => {
     apiKey: "MTMxNjA5XzE1NWFmOWJkNzMwZjQyZmJhOWFkNGUyM2I1YjZmYTZm",
     apiSecret: "MjNkNWEyMGI3MDQ5NDQ5YWE2NDRlZmIwMDAyYTE2MTU="
   }
-
-  const { getAPIToken, token } = useContext(TimeularContext)
-
-  useEffect(() => {
+  const { getAPIToken, token, getDailyReport } = useContext(TimeularContext)
+  const [logInDisabled, setLogInDisabled] = useState(false)
+  
+  const HandleLogin = () => {
+    setLogInDisabled(true)
     getAPIToken(loginCredentials)
-    // eslint-disable-next-line
-  }, [])
+  }
 
   return (
     <div>
       <h1>Hello, Nick!</h1>
       <p>Welcome to your new single-page application.</p>
       <p>{token?.token}</p>
+      <button disabled={logInDisabled} onClick={HandleLogin}>Log In</button>
+      <button onClick={getDailyReport}>Get Daily Report</button>
     </div>
   )
 }
