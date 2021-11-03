@@ -10,13 +10,12 @@ export const Report = () => {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
-        timeZone: "UTC"
+        timeZone: "CST"
     })
 
     return (
         <div>
-            <h1>Summary of {todaysDate}</h1>
-            <p>Welcome to your new single-page application.</p>
+            <h1>{todaysDate}</h1>
             {reportData?.timeEntries?.map(entry => {
                     return (
                         <div key={entry.id} id={entry.id}>
