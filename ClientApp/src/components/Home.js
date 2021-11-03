@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Report } from './Report';
 import { TimeularContext } from './TimeularProvider';
 
 export const Home = () => {
@@ -7,7 +8,7 @@ export const Home = () => {
     apiKey: "MTMxNjA5XzE1NWFmOWJkNzMwZjQyZmJhOWFkNGUyM2I1YjZmYTZm",
     apiSecret: "MjNkNWEyMGI3MDQ5NDQ5YWE2NDRlZmIwMDAyYTE2MTU="
   }
-  const { getAPIToken, token, getDailyReport } = useContext(TimeularContext)
+  const { getAPIToken, token, getDailyReport, reportData } = useContext(TimeularContext)
   const [logInDisabled, setLogInDisabled] = useState(false)
   
   const HandleLogin = () => {
@@ -22,6 +23,7 @@ export const Home = () => {
       <p>{token?.token}</p>
       <button disabled={logInDisabled} onClick={HandleLogin}>Log In</button>
       <button onClick={getDailyReport}>Get Daily Report</button>
+      {reportData && <Report />}
     </div>
   )
 }
