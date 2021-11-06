@@ -10,10 +10,12 @@ export const Home = () => {
   }
   const { getAPIToken, token, getDailyReport, reportData } = useContext(TimeularContext)
   const [logInDisabled, setLogInDisabled] = useState(false)
+  const [dailyReportEnabled, setDailyReportEnabled] = useState(false)
   
   const HandleLogin = () => {
     setLogInDisabled(true)
     getAPIToken(loginCredentials)
+    .then(() => setDailyReportEnabled(true))
   }
 
   return (
@@ -23,7 +25,7 @@ export const Home = () => {
       <p>{token?.token}</p>
       <button disabled={logInDisabled} onClick={HandleLogin}>Log In</button>
       <button onClick={getDailyReport}>Get Daily Report</button>
-      {reportData && <Report />}
+      {dailyReportEnabled && <Report />}
     </div>
   )
 }
