@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TimeularContext } from './TimeularProvider';
 
 export const Report = () => {
 
-    const { reportData } = useContext(TimeularContext)
+    const { reportData, getActivities, activities } = useContext(TimeularContext)
     const todaysDate = new Date().toLocaleDateString("en-US",
     {
         weekday: 'long',
@@ -12,6 +12,11 @@ export const Report = () => {
         year: 'numeric',
         timeZone: "CST"
     })
+
+    useEffect(() => {
+        getActivities()
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <div>
@@ -22,7 +27,7 @@ export const Report = () => {
                             <div>
                                 <div>
                                     <div>
-                                        <div id={entry.id}>{entry.activityId}</div>
+                                        <div id={entry.id}>{activities.activities.find(a => a.id == entry.activityId)?.name}</div>
                                         <div id={entry.id}>{entry.duration.startedAt}</div>
                                     </div>
                                 </div>

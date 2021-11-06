@@ -5,6 +5,7 @@ export const TimeularContext = createContext()
 export const TimeularProvider = (props) => {
     const [token, setToken] = useState({})
     const [reportData, setReportData] = useState({})
+    const [activities, setActivities] = useState({})
 
     const getCurrentDate = () => {
         const d = new Date()
@@ -24,11 +25,9 @@ export const TimeularProvider = (props) => {
         })
             .then(res => res.json())
             .then(res => setToken(res))
-        // "Authorization": `Token ${localStorage.getItem("priority_user_token")}`
     }
 
     const getDailyReport = () => {
-        //const todaysDate = new Date().toISOString().slice(0, 10)
         const todaysDate = getCurrentDate()
         return fetch(`https://api.timeular.com/api/v3/time-entries/${todaysDate}T00:00:00.000/${todaysDate}T23:59:59.999`, {
             method: "GET",
@@ -39,10 +38,20 @@ export const TimeularProvider = (props) => {
         })
             .then(res => res.json())
             .then(res => setReportData(res))
-        // "Authorization": `Token ${localStorage.getItem("priority_user_token")}`
+    }
+    const getActivities = () => {
+        return fetch(`https://api.timeular.com/api/v3/activities`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token.token}`,
+            },
+        })
+            .then(res => res.json())
+            .then(res => setActivities(res))
     }
     return (
-        <TimeularContext.Provider value={{ getAPIToken, token, getDailyReport, reportData }}>
+        <TimeularContext.Provider value={{ getAPIToken, token, getDailyReport, reportData, getActivities, activities }}>
             {props.children}
         </TimeularContext.Provider>
     )
