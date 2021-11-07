@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { Time } from './Time';
 import { TimeularContext } from './TimeularProvider';
+import { TotalTime } from './TotalTime';
 
 export const Report = () => {
 
@@ -12,6 +14,12 @@ export const Report = () => {
         year: 'numeric',
         timeZone: "CST"
     })
+
+    //time started
+    //time ended
+    //total time
+    //activity
+    //note
 
     useEffect(() => {
         getActivities()
@@ -27,8 +35,9 @@ export const Report = () => {
                             <div>
                                 <div>
                                     <div>
+                                        <div id={entry.id}>{<Time time={entry.duration.startedAt}/>} - {<Time time={entry.duration.stoppedAt}/>}</div>
+                                        {<TotalTime timeStarted={entry.duration.startedAt} timeEnded={entry.duration.stoppedAt}/>}
                                         <div id={entry.id}>{activities.activities.find(a => a.id == entry.activityId)?.name}</div>
-                                        <div id={entry.id}>{entry.duration.startedAt}</div>
                                     </div>
                                 </div>
                             </div>
