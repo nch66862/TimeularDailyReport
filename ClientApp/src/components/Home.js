@@ -8,14 +8,14 @@ export const Home = () => {
     apiKey: "MTMxNjA5XzE1NWFmOWJkNzMwZjQyZmJhOWFkNGUyM2I1YjZmYTZm",
     apiSecret: "MjNkNWEyMGI3MDQ5NDQ5YWE2NDRlZmIwMDAyYTE2MTU="
   }
-  const { getAPIToken, token, getDailyReport, reportData } = useContext(TimeularContext)
+  const { getAPIToken, token, getDailyReport } = useContext(TimeularContext)
   const [logInDisabled, setLogInDisabled] = useState(false)
   const [dailyReportEnabled, setDailyReportEnabled] = useState(false)
   
   const HandleLogin = () => {
     setLogInDisabled(true)
     getAPIToken(loginCredentials)
-    .then(() => setDailyReportEnabled(true))
+      .then(() => setDailyReportEnabled(true))
   }
 
   return (

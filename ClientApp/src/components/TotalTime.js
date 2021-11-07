@@ -5,7 +5,7 @@ export const TotalTime = ({ timeStarted, timeEnded }) => {
 
     return (
         <div>
-            <h1>hi</h1>
+            <h1>hi total</h1>
         </div>
     )
 }

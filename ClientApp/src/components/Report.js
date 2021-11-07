@@ -15,12 +15,6 @@ export const Report = () => {
         timeZone: "CST"
     })
 
-    //time started
-    //time ended
-    //total time
-    //activity
-    //note
-
     useEffect(() => {
         getActivities()
         // eslint-disable-next-line
@@ -35,9 +29,12 @@ export const Report = () => {
                             <div>
                                 <div>
                                     <div>
-                                        <div id={entry.id}>{<Time time={entry.duration.startedAt}/>} - {<Time time={entry.duration.stoppedAt}/>}</div>
-                                        {<TotalTime timeStarted={entry.duration.startedAt} timeEnded={entry.duration.stoppedAt}/>}
-                                        <div id={entry.id}>{activities.activities.find(a => a.id == entry.activityId)?.name}</div>
+                                        <Time time={entry.duration.startedAt}/>
+                                        <div> - </div>
+                                        <Time time={entry.duration.stoppedAt}/>
+                                        <TotalTime timeStarted={entry.duration.startedAt} timeEnded={entry.duration.stoppedAt}/>
+                                        <div>{activities.activities.find(a => a.id == entry.activityId)?.name}</div>
+                                        <div>{entry.note.text}</div>
                                     </div>
                                 </div>
                             </div>
