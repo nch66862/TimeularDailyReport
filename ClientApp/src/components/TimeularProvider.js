@@ -56,8 +56,3 @@ export const TimeularProvider = (props) => {
         </TimeularContext.Provider>
     )
 }
-
-function toISOStringLocal(d) {
-
-
-}
