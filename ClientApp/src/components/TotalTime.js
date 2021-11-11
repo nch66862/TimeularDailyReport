@@ -9,7 +9,7 @@ export const TotalTime = ({ timeStarted, timeEnded }) => {
 
     return (
         <div>
-            <h1>{(timeDifference/1000/60/60).toFixed(2)} hours</h1>
+            <h5>{(timeDifference/1000/60/60).toFixed(2)} hours</h5>
         </div>
     )
 }
