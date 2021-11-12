@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Time } from './Time';
 import { TimeularContext } from './TimeularProvider';
 import { TotalTime } from './TotalTime';
 
 export const Report = () => {
 
-    const { reportData, getActivities, activities } = useContext(TimeularContext)
+    const { reportData, activities } = useContext(TimeularContext)
     const todaysDate = new Date().toLocaleDateString("en-US",
         {
             weekday: 'long',
@@ -14,9 +14,10 @@ export const Report = () => {
             year: 'numeric',
             timeZone: "CST"
         })
+    const [sortedEntries, setSortedEntries] = useState([])
 
     useEffect(() => {
-        getActivities()
+        setSortedEntries(sortEntries(reportData))
         // eslint-disable-next-line
     }, [])
 
@@ -57,7 +58,7 @@ export const Report = () => {
                 <h3 style={activityNoteSpacing}>Activity</h3>
                 <h3 style={activityNoteSpacing}>Note</h3>
             </div>
-            {reportData?.timeEntries?.map(entry => {
+            {sortedEntries.map(entry => {
                 return (
                     <div key={entry.id} id={entry.id} style={divStyle}>
                         <div style={timeDivStyle}>
@@ -73,4 +74,15 @@ export const Report = () => {
             })}
         </div>
     )
+}
+
+const sortEntries = (entries) => {
+    const sortedEntries = entries.timeEntries.slice().sort((a, b) => {
+        const aDate = new Date(a.date)
+        const bDate = new Date(b.date)
+        a.date = aDate
+        b.date = bDate
+        return b.date - a.date
+    })
+    return sortedEntries
 }
