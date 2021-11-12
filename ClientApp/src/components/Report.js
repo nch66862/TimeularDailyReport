@@ -78,11 +78,11 @@ export const Report = () => {
 
 const sortEntries = (entries) => {
     const sortedEntries = entries.timeEntries.slice().sort((a, b) => {
-        const aDate = new Date(a.date)
-        const bDate = new Date(b.date)
-        a.date = aDate
-        b.date = bDate
-        return b.date - a.date
+        const aDate = new Date(a.duration.startedAt)
+        const bDate = new Date(b.duration.startedAt)
+        a.duration.startedAt = aDate
+        b.duration.startedAt = bDate
+        return a.duration.startedAt - b.duration.startedAt
     })
     return sortedEntries
 }
