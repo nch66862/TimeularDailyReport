@@ -26,7 +26,7 @@ export const Home = () => {
   return (
     <div>
       <h1>Hello, Nick!</h1>
-      <p>Welcome to your new single-page application.</p>
+      <p>Welcome to your Daily Report Sender.</p>
       <p>{token?.token}</p>
       <button disabled={logInDisabled} onClick={HandleLogin}>Log In</button>
       <button onClick={HandleDailyReport}>Get Daily Report</button>
