@@ -12,7 +12,7 @@ export const Home = () => {
       apiKey: "MTMxNjA5XzE1NWFmOWJkNzMwZjQyZmJhOWFkNGUyM2I1YjZmYTZm",
       apiSecret: "MjNkNWEyMGI3MDQ5NDQ5YWE2NDRlZmIwMDAyYTE2MTU="
     })
-  const [chosenDate, setChosenDate] = useState(getCurrentDate())
+  const [chosenDate, setChosenDate] = useState()
 
   const HandleLogin = () => {
     setLogInDisabled(true)
@@ -31,22 +31,14 @@ export const Home = () => {
     setLoginCredentials(credentials)
   }
 
-  const ChangeChosenDate = (datetime) => {
-    
+  const ChangeChosenDate = (event) => {
+    setChosenDate(event.target.value)
   }
 
   const HandleDailyReport = () => {
-    getDailyReport()
+    getDailyReport(chosenDate)
       .then(() => getActivities())
       .then(() => setDailyReportEnabled(true))
-  }
-
-  const getCurrentDate = () => {
-    const d = new Date()
-    const z = (n) => {
-      return (n < 10 ? '0' : '') + n
-    }
-    return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate())
   }
 
   return (

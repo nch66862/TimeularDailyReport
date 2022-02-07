@@ -27,7 +27,7 @@ export const TimeularProvider = (props) => {
             .then(res => setToken(res))
     }
 
-    const getDailyReport = () => {
+    const getDailyReport = (requestedDate) => {
         const todaysDate = getCurrentDate()
         return fetch(`https://api.timeular.com/api/v3/time-entries/${todaysDate}T00:00:00.000/${todaysDate}T23:59:59.999`, {
             method: "GET",
