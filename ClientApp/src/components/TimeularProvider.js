@@ -20,7 +20,8 @@ export const TimeularProvider = (props) => {
     }
 
     const getDailyReport = (requestedDate) => {
-        return fetch(`https://api.timeular.com/api/v3/time-entries/${requestedDate}T00:00:00.000/${requestedDate}T23:59:59.999`, {
+        const nextDay = getNextDay(requestedDate)
+        return fetch(`https://api.timeular.com/api/v3/time-entries/${requestedDate}T12:00:00.000/${nextDay}T23:59:59.999`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -45,4 +46,9 @@ export const TimeularProvider = (props) => {
             {props.children}
         </TimeularContext.Provider>
     )
+}
+
+const getNextDay = (currentDay) => {
+    const nextDayString = new Date(new Date(currentDay).getTime() + 86400000).toUTCString()
+    
 }
