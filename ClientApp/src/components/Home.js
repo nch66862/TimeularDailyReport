@@ -57,7 +57,7 @@ export const Home = () => {
       <p>{token?.token}</p>
       <button disabled={logInDisabled} onClick={HandleLogin}>Log In</button>
       <button onClick={HandleDailyReport}>Get Daily Report</button>
-      {dailyReportEnabled && <Report />}
+      {dailyReportEnabled && <Report chosenDate = {chosenDate}/>}
     </div>
   )
 }

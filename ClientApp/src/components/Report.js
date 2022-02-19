@@ -3,16 +3,16 @@ import { Time } from './Time';
 import { TimeularContext } from './TimeularProvider';
 import { TotalTime } from './TotalTime';
 
-export const Report = () => {
+export const Report = ({ chosenDate }) => {
 
     const { reportData, activities } = useContext(TimeularContext)
-    const todaysDate = new Date().toLocaleDateString("en-US",
+    const formattedDate = new Date(chosenDate).getTime() + 86400000
+    const dateDisplay = new Date(formattedDate).toLocaleDateString("en-US",
         {
             weekday: 'long',
             month: 'long',
             day: 'numeric',
             year: 'numeric',
-            timeZone: "CST"
         })
     const [sortedEntries, setSortedEntries] = useState([])
 
@@ -51,7 +51,7 @@ export const Report = () => {
 
     return (
         <div>
-            <h1>{todaysDate}</h1>
+            <h1>{dateDisplay}</h1>
             <div style={divStyle}>
                 <h3 style={timeHeader}>Time</h3>
                 <h3 style={evenSpacing}>Duration</h3>

@@ -7,14 +7,6 @@ export const TimeularProvider = (props) => {
     const [reportData, setReportData] = useState({})
     const [activities, setActivities] = useState({})
 
-    const getCurrentDate = () => {
-        const d = new Date()
-        const z = (n) => {
-            return (n < 10 ? '0' : '') + n
-        }
-        return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate())
-    }
-
     const getAPIToken = (keyAndSecret) => {
         return fetch("https://api.timeular.com/api/v3/developer/sign-in", {
             method: "POST",
@@ -28,8 +20,7 @@ export const TimeularProvider = (props) => {
     }
 
     const getDailyReport = (requestedDate) => {
-        const todaysDate = getCurrentDate()
-        return fetch(`https://api.timeular.com/api/v3/time-entries/${todaysDate}T00:00:00.000/${todaysDate}T23:59:59.999`, {
+        return fetch(`https://api.timeular.com/api/v3/time-entries/${requestedDate}T00:00:00.000/${requestedDate}T23:59:59.999`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
