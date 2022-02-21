@@ -50,13 +50,23 @@ export const TimeularProvider = (props) => {
 }
 
 const getDateWithTimeZoneOffset = (requestedDate) => {
-    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6)).toUTCString()
-    return dateWithTimeZone
+    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6)).toISOString()
+    const dateTimeSplit = dateWithTimeZone.split("T")
+    const dateOnly = dateTimeSplit[0]
+    const dateSplit = dateOnly.split("-")
+    const correctDateFormat = dateSplit[1].concat("-", dateSplit[2], "-", dateSplit[0])
+    const correctFormat = correctDateFormat.concat("T", dateTimeSplit[1]).split("Z")[0]
+    return correctFormat
 }
 
 const getDate24HrsLater = (requestedDate) => {
-    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6) + changeHoursToMilliseconds(24)).toUTCString()
-    return dateWithTimeZone
+    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6) + changeHoursToMilliseconds(24)).toISOString()
+    const dateTimeSplit = dateWithTimeZone.split("T")
+    const dateOnly = dateTimeSplit[0]
+    const dateSplit = dateOnly.split("-")
+    const correctDateFormat = dateSplit[1].concat("-", dateSplit[2], "-", dateSplit[0])
+    const correctFormat = correctDateFormat.concat("T", dateTimeSplit[1]).split("Z")[0]
+    return correctFormat
 }
 
 const changeHoursToMilliseconds = (numberOfHours) => {
