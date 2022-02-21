@@ -20,8 +20,9 @@ export const TimeularProvider = (props) => {
     }
 
     const getDailyReport = (requestedDate) => {
-        const nextDay = getNextDay(requestedDate)
-        return fetch(`https://api.timeular.com/api/v3/time-entries/${requestedDate}T12:00:00.000/${nextDay}T23:59:59.999`, {
+        const startTime = getDateWithTimeZoneOffset(requestedDate)
+        const endTime = getDate24HrsLater(requestedDate)
+        return fetch(`https://api.timeular.com/api/v3/time-entries/${startTime}/${endTime}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +49,16 @@ export const TimeularProvider = (props) => {
     )
 }
 
-const getNextDay = (currentDay) => {
-    const nextDayString = new Date(new Date(currentDay).getTime() + 86400000).toUTCString()
-    
+const getDateWithTimeZoneOffset = (requestedDate) => {
+    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6)).toUTCString()
+    return dateWithTimeZone
+}
+
+const getDate24HrsLater = (requestedDate) => {
+    const dateWithTimeZone = new Date(new Date(requestedDate).getTime() + changeHoursToMilliseconds(6) + changeHoursToMilliseconds(24)).toUTCString()
+    return dateWithTimeZone
+}
+
+const changeHoursToMilliseconds = (numberOfHours) => {
+    return numberOfHours * 60 * 60 * 1000
 }
