@@ -49,13 +49,16 @@ export const Report = ({ chosenDate }) => {
         width: '28%'
     }
 
-    const mailReference = `mailto:nicholascarver2@outlook.com?subject=Daily Report ${dateDisplay}&body=${theReport}`
-
-    const theReport = document.getElementById('report').innerHTML
+    const sendEmail = () => {
+        var email = "nicholascarver2@outlook.com"
+        var subject = `Daily Report ${dateDisplay}`
+        var emailBody = document.getElementById('report').innerHTML
+        document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody
+    }
 
     return (
         <div>
-            <a target="_blank" href={mailReference}>Email</a>
+            <button onClick={sendEmail}>Send Email</button>
             <h1>{dateDisplay}</h1>
             <div id='report'>
                 <div style={divStyle}>
