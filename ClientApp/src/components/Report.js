@@ -49,29 +49,36 @@ export const Report = ({ chosenDate }) => {
         width: '28%'
     }
 
+    const mailReference = `mailto:nicholascarver2@outlook.com?subject=Daily Report ${dateDisplay}&body=${theReport}`
+
+    const theReport = document.getElementById('report').innerHTML
+
     return (
         <div>
+            <a target="_blank" href={mailReference}>Email</a>
             <h1>{dateDisplay}</h1>
-            <div style={divStyle}>
-                <h3 style={timeHeader}>Time</h3>
-                <h3 style={evenSpacing}>Duration</h3>
-                <h3 style={activityNoteSpacing}>Activity</h3>
-                <h3 style={activityNoteSpacing}>Note</h3>
-            </div>
-            {sortedEntries.map(entry => {
-                return (
-                    <div key={entry.id} id={entry.id} style={divStyle}>
-                        <div style={timeDivStyle}>
-                            <h5><Time time={entry.duration.startedAt} /></h5>
-                            <h5 style={heiphenStyle}> - </h5>
-                            <h5><Time time={entry.duration.stoppedAt} /></h5>
+            <div id='report'>
+                <div style={divStyle}>
+                    <h3 style={timeHeader}>Time</h3>
+                    <h3 style={evenSpacing}>Duration</h3>
+                    <h3 style={activityNoteSpacing}>Activity</h3>
+                    <h3 style={activityNoteSpacing}>Note</h3>
+                </div>
+                {sortedEntries.map(entry => {
+                    return (
+                        <div key={entry.id} id={entry.id} style={divStyle}>
+                            <div style={timeDivStyle}>
+                                <h5><Time time={entry.duration.startedAt} /></h5>
+                                <h5 style={heiphenStyle}> - </h5>
+                                <h5><Time time={entry.duration.stoppedAt} /></h5>
+                            </div>
+                            <h5 style={evenSpacing}><TotalTime timeStarted={entry.duration.startedAt} timeEnded={entry.duration.stoppedAt} /></h5>
+                            <h5 style={activityNoteSpacing}>{activities.activities.find(a => a.id == entry.activityId)?.name}</h5>
+                            <h5 style={activityNoteSpacing}>{entry.note.text}</h5>
                         </div>
-                        <h5 style={evenSpacing}><TotalTime timeStarted={entry.duration.startedAt} timeEnded={entry.duration.stoppedAt} /></h5>
-                        <h5 style={activityNoteSpacing}>{activities.activities.find(a => a.id == entry.activityId)?.name}</h5>
-                        <h5 style={activityNoteSpacing}>{entry.note.text}</h5>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
     )
 }
